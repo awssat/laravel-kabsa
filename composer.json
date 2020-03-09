@@ -1,0 +1,59 @@
+{
+    "name": "awssat/laravel-kabsa",
+    "type": "library",
+    "description": "Laravel Cache Simple Models",
+    "keywords": [
+        "Laravel", "Cache"
+    ],
+    "homepage": "https://github.com/awssat/laravel-kabsa",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bader Almutairi",
+            "email": "phpfalcon@gmail.com"
+        },
+        {
+            "name": "Abdulrahman Alshuwayi",
+            "email": "hi@abdumu.com"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "illuminate/support": "~5.5.0 || ~5.6.0 || ~5.7.0 || ~5.8.0 || ^6.0 || ^7.0"
+    },
+    "require-dev": {
+        "doctrine/dbal": "^2.5",
+        "phpunit/phpunit": "^8.3",
+        "fzaninotto/faker": "^1.6",
+        "mockery/mockery": "^1.2",
+        "orchestra/testbench": "^3.5 || ^3.6 || ^3.7 || ^3.8 || ^4.0 || ^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Awssat\\Kabsa\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Awssat\\Kabsa\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "check-style": "phpcs -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests",
+        "fix-style": "phpcbf -p --standard=PSR2 --runtime-set ignore_errors_on_exit 1 --runtime-set ignore_warnings_on_exit 1 src tests"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Awssat\\Kabsa\\KabsaServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    }
+}
