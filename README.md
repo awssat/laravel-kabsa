@@ -47,7 +47,7 @@ $stateName = State::where('Abbr', 'NY')->first()->name;
 ```
 
 ### Relationships
-Let's say you created a `Role` model, based on an array using Sushi, that looked like this:
+
 ```php
 class Role extends Model
 {
