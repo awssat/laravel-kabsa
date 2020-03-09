@@ -11,7 +11,7 @@ trait Kabsa
     {
         self::unguard();
         $self = new self();
-        return Collection::make($self->rows ?? [])->map(fn ($row) => new self($row));
+        return Collection::make($self->rows ?? [])->map(function ($row) { return new self($row); });
     }
 
     public function __call($method, $parameters)
