@@ -9,7 +9,7 @@
 
 
 
-Laravel Kabsa is a simple array trait for your Eloquent model just like https://github.com/calebporzio/sushi without sqlite it's proof of concept so please don't use it in production 
+Laravel Kabsa is a simple array trait for your Eloquent model just like https://github.com/calebporzio/sushi without sqlite 
 
 
 ## Install
