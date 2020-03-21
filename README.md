@@ -41,6 +41,29 @@ class State extends Model
 }
 ```
 
+or
+
+```php
+class State extends Model
+{
+    use \Awssat\Kabsa\Traits\Kabsa;
+
+    public function getRows() 
+    {
+        return [
+            [
+                'abbr' => 'NY',
+                'name' => 'New York',
+            ],
+            [
+                'abbr' => 'CA',
+                'name' => 'California',
+            ],
+        ];
+    }
+}
+```
+
 Now, you can use this model anywhere you like, and it will behave as if you created a table with the rows you provided.
 ```php
 $stateName = State::where('Abbr', 'NY')->first()->name;
