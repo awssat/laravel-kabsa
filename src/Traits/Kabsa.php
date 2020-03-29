@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 trait Kabsa
 {
+    static $kabsaCollection;
+    
     public function getRows()
     {
         return $this->rows;
@@ -14,10 +16,14 @@ trait Kabsa
 
     public static function all($columns = [])
     {
+        if(!empty(static::$kabsaCollection)) {
+            return static::$kabsaCollection;
+        }
+        
         self::unguard();
         $self = new self();
 
-        return Collection::make($self->getRows() ?? [])->map(function ($row) { return new self($row); });
+        return static::$kabsaCollection = Collection::make($self->getRows() ?? [])->map(function ($row) { return new self($row); });
     }
 
     public function __call($method, $parameters)
