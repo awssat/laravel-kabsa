@@ -2,7 +2,6 @@
 
 namespace Awssat\Kabsa\Relationships;
 
-use Awssat\Kabsa\Tests\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -48,6 +47,4 @@ class BelongsToCached extends BelongsTo
     {
 // not implemented yet
     }
-
-
 }
