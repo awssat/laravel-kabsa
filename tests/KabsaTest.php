@@ -9,7 +9,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Redis;
 use Orchestra\Testbench\TestCase;
 
-class KabsaTests extends TestCase
+class KabsaTest extends TestCase
 {
     /**
      * Setup the test environment.
