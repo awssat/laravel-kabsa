@@ -46,10 +46,6 @@ class KabsaTest extends TestCase
     /** @test * */
     public function static_var()
     {
-        $collection = $this->getOrSetProperty(Role::class, 'kabsaCollection');
-
-        $this->assertEmpty($collection);
-
         $this->assertEquals([
             ['label' => 'admin'],
             ['label' => 'manager'],
