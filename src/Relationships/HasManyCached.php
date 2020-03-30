@@ -26,4 +26,12 @@ class HasManyCached extends HasOneOrMany
         return $this->related::where($this->foreignKey,
             $this->parent->{$this->ownerKey});
     }
+
+    public function initRelation(array $models, $relation)
+    {
+    }
+
+    public function match(array $models, Collection $results, $relation)
+    {
+    }
 }
