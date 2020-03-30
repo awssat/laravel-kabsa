@@ -18,6 +18,10 @@ To get started with Laravel Kabsa, use Composer to add the package to your proje
 composer require awssat/laravel-kabsa
 ```
 
+## Examples
+
+Code examples available [see: examples](EXAMPLES.md)
+
 ## Use
 
 1. Add the `Kabsa` trait to a model.
