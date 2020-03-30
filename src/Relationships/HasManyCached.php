@@ -21,31 +21,9 @@ class HasManyCached extends HasOneOrMany
         parent::__construct((new $related)->newQuery(), $parent, $foreignKey, $ownerKey);
     }
 
-    public function addConstraints()
-    {
-        //call_user_func($this->baseConstraints, $this);
-    }
-
     public function getResults()
     {
         return $this->related::where($this->foreignKey,
             $this->parent->{$this->ownerKey});
     }
-
-    public function addEagerConstraints(array $models)
-    {
-// not implemented yet
-    }
-
-    public function initRelation(array $models, $relation)
-    {
-// not implemented yet
-    }
-
-    public function match(array $models, Collection $results, $relation)
-    {
-// not implemented yet
-    }
-
-
 }
