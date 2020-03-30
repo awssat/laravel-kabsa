@@ -46,21 +46,27 @@ class KabsaTest extends TestCase
     /** @test * */
     public function static_var()
     {
+        $collection = $this->getOrSetProperty(Role::class, 'kabsaCollection');
+
+        $this->assertEmpty($collection);
+
         $this->assertEquals([
             ['label' => 'admin'],
             ['label' => 'manager'],
             ['label' => 'user']
             ], Role::all()->toArray());
 
+        $collection = $this->getOrSetProperty(Role::class, 'kabsaCollection');
 
         $this->assertEquals([
             ['label' => 'admin'],
             ['label' => 'manager'],
             ['label' => 'user']
-        ], Role::$kabsaCollection->toArray());
+        ], $collection->toArray());
 
 
-        Role::$kabsaCollection = collect([['static']]);
+        //set something else
+        $this->getOrSetProperty(Role::class, 'kabsaCollection', collect([['static']]));
 
         //one
         $this->assertEquals([
@@ -72,7 +78,7 @@ class KabsaTest extends TestCase
             ['static']
         ], Role::all()->toArray());
 
-        Role::$kabsaCollection = [];
+        $this->getOrSetProperty(Role::class, 'kabsaCollection', null);
 
         $this->assertEquals([
             ['label' => 'admin'],
@@ -80,11 +86,31 @@ class KabsaTest extends TestCase
             ['label' => 'user']
         ], Role::all()->toArray());
 
+        $collection = $this->getOrSetProperty(Role::class, 'kabsaCollection');
+
+
         $this->assertEquals([
             ['label' => 'admin'],
             ['label' => 'manager'],
             ['label' => 'user']
-        ], Role::$kabsaCollection->toArray());
+        ], $collection->toArray());
+    }
+
+
+    public function getOrSetProperty($object, $name, $value = false)
+    {
+        $reflected = new \ReflectionClass($object);
+
+        $property = $reflected->getProperty($name);
+
+        $property->setAccessible(true);
+
+        if($value !== false) {
+            $property->setValue($object, $value);
+            return true;
+        }
+
+        return $property->getValue($object);
     }
 
     /**

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 trait Kabsa
 {
-    static $kabsaCollection;
+    protected static $kabsaCollection;
     
     public function getRows()
     {
