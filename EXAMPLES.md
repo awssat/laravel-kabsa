@@ -2,54 +2,27 @@
 ### Covid 19 Example
 
 ```php
-class Covid19Date extends \Illuminate\Database\Eloquent\Model
-{
-    use \Awssat\Kabsa\Traits\Kabsa;
-
-}
-
-
 class Covid19 extends \Illuminate\Database\Eloquent\Model
 {
-    use \Awssat\Kabsa\Traits\Kabsa,  \Awssat\Kabsa\Traits\KabsaRelationships;
-
-    protected static $total = 0;
-
+    use \Awssat\Kabsa\Traits\Kabsa;
+    
     public function getRows()
     {
         return collect(Http::get('https://pomber.github.io/covid19/timeseries.json')
             ->json())
-            ->map(function ($dates, $country) {
-
-                foreach($dates as $date) {
-                    $date['country'] = $country;
-                    Covid19Date::addRow($date);
-                }
-
-                static::$total += end($dates)['confirmed'] ?? 0;
-
-                return ['name' => $country];
+            ->map(function ($timeline, $country) {
+                return ['country' => $country, 'timeline' => collect($timeline)];
             })->toArray();
     }
-
-    public function timeline()
-    {
-        return $this->hasManyKabsaRows(Covid19Date::class,  'country', 'name');
-    }
-
-    public function getTotalAttribute()
-    {
-        return $this->timeline->last()->confirmed;
-    }
-
+    
     public function yesterday()
     {
         return $this->timeline->firstWhere('date', now()->subDay()->format('Y-n-d'));
     }
 
-    public function today()
+    public function latest()
     {
-        return $this->timeline->firstWhere('date', now()->format('Y-n-d'));
+        return $this->timeline->last();
     }
 
     public function lastWeek()
@@ -57,13 +30,20 @@ class Covid19 extends \Illuminate\Database\Eloquent\Model
         return $this->timeline->firstWhere('date', now()->subWeek()->format('Y-n-d'));
     }
 
+    public function getTotalAttribute()
+    {
+        return $this->timeline->last()['confirmed'] ?? 0;
+    }
+    
     public static function totalAroundTheWorld()
     {
-        return static::$total;
+        return static::all()->sum('total');
     }
 }
 
 Covid19::totalAroundTheWorld();
 
-Covid19::firstWhere('name', 'United Kingdom')->lastWeek()->confirmed;
+Covid19::firstWhere('country', 'United Kingdom')->lastWeek()['confirmed'];
+
+Covid19::firstWhere('country', 'United Kingdom')->latest()['confirmed'];
 ```
