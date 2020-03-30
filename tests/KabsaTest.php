@@ -39,6 +39,50 @@ class KabsaTest extends TestCase
         $this->assertEquals('admin', Role::first()->label);
     }
 
+    /** @test * */
+    public function static_var()
+    {
+        $this->assertEquals([
+            ['label' => 'admin'],
+            ['label' => 'manager'],
+            ['label' => 'user']
+            ], Role::all()->toArray());
+
+
+        $this->assertEquals([
+            ['label' => 'admin'],
+            ['label' => 'manager'],
+            ['label' => 'user']
+        ], Role::$kabsaCollection->toArray());
+
+
+        Role::$kabsaCollection = collect([['static']]);
+
+        //one
+        $this->assertEquals([
+            ['static']
+        ], Role::all()->toArray());
+
+        //two
+        $this->assertEquals([
+            ['static']
+        ], Role::all()->toArray());
+
+        Role::$kabsaCollection = [];
+
+        $this->assertEquals([
+            ['label' => 'admin'],
+            ['label' => 'manager'],
+            ['label' => 'user']
+        ], Role::all()->toArray());
+
+        $this->assertEquals([
+            ['label' => 'admin'],
+            ['label' => 'manager'],
+            ['label' => 'user']
+        ], Role::$kabsaCollection->toArray());
+    }
+
     /**
      * Define environment setup.
      *
