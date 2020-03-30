@@ -6,6 +6,7 @@ use Awssat\Kabsa\Traits\Kabsa;
 use Awssat\Kabsa\Traits\KabsaRelationships;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Orchestra\Testbench\TestCase;
 
@@ -26,6 +27,8 @@ class KabsaTest extends TestCase
     /** @test * */
     public function first_test()
     {
+        DB::enableQueryLog();
+
         $user = User::create(['name' => 'hi']);
 
         // Grab a Role.
@@ -37,6 +40,7 @@ class KabsaTest extends TestCase
         $this->assertEquals('admin', $user->role->label);
         $this->assertEquals(3, Role::count());
         $this->assertEquals('admin', Role::first()->label);
+        $this->assertCount(1, DB::getQueryLog());
     }
 
     /** @test * */
