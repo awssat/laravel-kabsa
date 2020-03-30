@@ -32,7 +32,7 @@ class Covid19 extends \Illuminate\Database\Eloquent\Model
 
     public function getTotalAttribute()
     {
-        return $this->timeline->last()['confirmed'] ?? 0;
+        return $this->latest()['confirmed'] ?? 0;
     }
     
     public static function totalAroundTheWorld()
