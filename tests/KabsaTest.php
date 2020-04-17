@@ -32,16 +32,28 @@ class KabsaTest extends TestCase
 
         $user = User::create(['name' => 'hi']);
 
+        $this->assertEquals(null, $user->role);
+
         // Grab a Role.
         $role = Role::where('label', 'admin')->first();
 
         // Associate them.
         $user->role()->associate($role);
+        $user->save();
 
-        $this->assertEquals('admin', $user->role->label);
+        $this->assertEquals('admin', $user->fresh()->role->label);
         $this->assertEquals(3, Role::count());
         $this->assertEquals('admin', Role::first()->label);
-        $this->assertCount(1, DB::getQueryLog());
+        $this->assertCount(3, DB::getQueryLog());
+
+        // Grab a Role.
+        $role = Role::where('label', 'user')->first();
+
+        // Associate them.
+        $user->role()->associate($role);
+        $user->save();
+
+        $this->assertEquals('user', $user->fresh()->role->label);
     }
 
     /** @test * */
@@ -137,7 +149,7 @@ class KabsaTest extends TestCase
             $schema->create('users', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->nullable();
-                $table->string('role_label')->default('user');
+                $table->string('role_label')->nullable();
                 $table->timestamps();
             });
         }
@@ -164,6 +176,6 @@ class User extends Model
 
     public function role()
     {
-        return $this->belongsToKabsaRow(Role::class, 'label', 'role_label');
+        return $this->belongsToKabsaRow(Role::class, 'role_label', 'label');
     }
 }

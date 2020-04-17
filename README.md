@@ -100,7 +100,7 @@ class User extends Model
 
     public function role()
     {
-        return $this->belongsToKabsaRow(Role::class, 'label', 'role_label');
+        return $this->belongsToKabsaRow(Role::class, 'role_label', 'label');
     }
 }
 ```
