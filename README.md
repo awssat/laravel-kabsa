@@ -120,7 +120,7 @@ $user->role()->associate($role);
 $user->role;
 ```
 
-Eager loading doen't work because it's a collection you don't need eager load you can call the relation `->relation` directly. if you need it to be appended to the collection array you can create attrbiute and add it to $appends
+Eager loading doen't work because it's a collection you don't need eager load you can call the relation `->relation` directly. if you need it to be appended to the collection array you can create attribute and add it to $appends
 
 ## License
 
