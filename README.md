@@ -9,7 +9,7 @@
 
 
 
-Laravel Kabsa is a simple array trait for your Eloquent model just like https://github.com/calebporzio/sushi without sqlite 
+Laravel Kabsa is a simple array trait for your Eloquent model just like https://github.com/calebporzio/sushi without SQLite 
 
 
 ## Install
@@ -72,7 +72,7 @@ Now, you can use this model anywhere you like, and it will behave as if you crea
 ```php
 $stateName = State::where('Abbr', 'NY')->first()->name;
 
-//or
+// or
 $stateName = State::firstWhere('Abbr', 'NY')->name;
 
 ```
@@ -120,7 +120,7 @@ $user->role()->associate($role);
 $user->role;
 ```
 
-Eager loading doen't work because it's a collection you don't need eager load you can call the relation `->relation` directly. if you need it to be appended to the collection array you can create attrbiute and add it to $appends
+Eager loading doesn't work because it's a collection you don't need eager load you can call the relation `->relation` directly. If you need it to be appended to the collection array you can create an attribute and add it to $appends.
 
 ## License
 
