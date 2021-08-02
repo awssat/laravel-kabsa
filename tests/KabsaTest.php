@@ -65,7 +65,7 @@ class KabsaTest extends TestCase
             ['label' => 'user']
             ], Role::all()->toArray());
 
-        $collection = $this->getOrSetProperty(Role::class, 'kabsaCollection');
+        $collection = $this->getOrSetProperty(new Role(), 'kabsaCollection');
 
         $this->assertEquals([
             ['label' => 'admin'],
@@ -73,9 +73,8 @@ class KabsaTest extends TestCase
             ['label' => 'user']
         ], $collection->toArray());
 
-
         //set something else
-        $this->getOrSetProperty(Role::class, 'kabsaCollection', collect([['static']]));
+        $this->getOrSetProperty(new Role(), 'kabsaCollection', collect([['static']]));
 
         //one
         $this->assertEquals([
@@ -87,7 +86,7 @@ class KabsaTest extends TestCase
             ['static']
         ], Role::all()->toArray());
 
-        $this->getOrSetProperty(Role::class, 'kabsaCollection', null);
+        $this->getOrSetProperty(new Role(), 'kabsaCollection', null);
 
         $this->assertEquals([
             ['label' => 'admin'],
@@ -95,9 +94,8 @@ class KabsaTest extends TestCase
             ['label' => 'user']
         ], Role::all()->toArray());
 
-        $collection = $this->getOrSetProperty(Role::class, 'kabsaCollection');
-
-
+        $collection = $this->getOrSetProperty(new Role(), 'kabsaCollection');
+        
         $this->assertEquals([
             ['label' => 'admin'],
             ['label' => 'manager'],
